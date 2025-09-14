@@ -1,0 +1,101 @@
+dotnet run
+
+1.  sleep 3 && curl -s http://localhost:5218/api/products | head -5
+      
+       [{"id":1,"name":"Wireless Bluetooth Headphones","description":"High-quality wireless headphones with noise cancellation and 30-hour battery life.","price":199.99,"stockQuantity":48,"imageUrl":"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500","category":"Electronics","createdAt":"2025-09-14T14:09:33.665112","updatedAt":"2025-09-14T17:27:08.589774"},{"id":2,"name":"Smart Fitness Watch","description":"Advanced fitness tracking watch with heart rate monitor, GPS, and water resistance.","price":299.99,"stockQuantity":30,"imageUrl":"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500","category":"Electronics","createdAt":"2025-09-14T14:09:33.66519","updatedAt":"2025-09-14T14:09:33.66519"},{"id":3,"name":"Organic Cotton T-Shirt","description":"Comfortable and sustainable organic cotton t-shirt in various colors.","price":29.99,"stockQuantity":100,"imageUrl":"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500","category":"Clothing","createdAt":"2025-09-14T14:09:33.66519","updatedAt":"2025-09-14T14:09:33.66519"},{"id":4,"name":"Premium Coffee Beans","description":"Artisan roasted coffee beans from Colombia, perfect for coffee enthusiasts.","price":24.99,"stockQuantity":75,"imageUrl":"https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=500","category":"Food & Beverages","createdAt":"2025-09-14T14:09:33.66519","updatedAt":"2025-09-14T14:09:33.66519"},{"id":5,"name":"Yoga Mat Pro","description":"Non-slip yoga mat with excellent cushioning and durability for all yoga practices.","price":79.99,"stockQuantity":40,"imageUrl":"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500","category":"Sports & Fitness","createdAt":"2025-09-14T14:09:33.66519","updatedAt":"2025-09-14T14:09:33.66519"},{"id":6,"name":"Ceramic Dinner Set","description":"Beautiful handcrafted ceramic dinner set for 4 people, dishwasher safe.","price":149.99,"stockQuantity":20,"imageUrl":"https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500","category":"Home & Kitchen","createdAt":"2025-09-14T14:09:33.665191","updatedAt":"2025-09-14T14:09:33.665191"},{"id":7,"name":"LED Desk Lamp","description":"Adjustable LED desk lamp with multiple brightness levels and USB charging port.","price":89.99,"stockQuantity":60,"imageUrl":"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500","category":"Home & Kitchen","createdAt":"2025-09-14T14:09:33.665191","updatedAt":"2025-09-14T14:09:33.665191"},{"id":8,"name":"Running Shoes","description":"Lightweight running shoes with excellent cushioning and breathable material.","price":129.99,"stockQuantity":80,"imageUrl":"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500","category":"Sports & Fitness","createdAt":"2025-09-14T14:09:33.665191","updatedAt":"2025-09-14T14:09:33.665191"},{"id":9,"name":"Wireless Phone Charger","description":"Fast wireless charging pad compatible with all Qi-enabled devices.","price":39.99,"stockQuantity":90,"imageUrl":"https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500","category":"Electronics","createdAt":"2025-09-14T14:09:33.665191","updatedAt":"2025-09-14T14:09:33.665191"},{"id":10,"name":"Leather Wallet","description":"Genuine leather wallet with RFID blocking technology and multiple card slots.","price":59.99,"stockQuantity":45,"imageUrl":"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500","category":"Accessories","createdAt":"2025-09-14T14:09:33.665192","updatedAt":"2025-09-14T14:09:33.665192"}]%    
+
+
+
+       1.1 Register a New User
+
+           curl -X POST http://localhost:5218/api/auth/register -H "Content-Type: application/json" -d '{"email": "newuser@example.com", "password": "password123", "firstName": "John", "lastName": "Doe", "phoneNumber": "+1234567890"}' | jq .
+
+            save received from above command token for later use:
+
+                  example: export JWT_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzIiwiZW1haWwiOiJuZXd1c2VyQGV4YW1wbGUuY29tIiwidW5pcXVlX25hbWUiOiJKb2huIERvZSIsIm5iZiI6MTc1Nzg3MTIzNCwiZXhwIjoxNzU3OTU3NjM0LCJpYXQiOjE3NTc4NzEyMzQsImlzcyI6IkVjb21tZXJjZUFwcCIsImF1ZCI6IkVjb21tZXJjZUFwcFVzZXJzIn0.4_3yZgxMSz7HLMeYf6vWC8mOxOOW5xp_zsBbLaEXU88"
+
+
+        1.2 Login User
+
+          curl -X POST http://localhost:5218/api/auth/login -H "Content-Type: application/json" -d '{"email": "newuser@example.com", "password": "password123"}' | jq .
+
+
+
+        1.3 Get Current User Info
+
+          curl -X GET http://localhost:5218/api/auth/me -H "Authorization: Bearer $JWT_TOKEN" | jq .
+
+
+        2.1 Get All Products
+
+          curl -X GET http://localhost:5218/api/products | jq '.[0:3]'
+
+        2.2 Get Product by ID
+
+         curl -X GET http://localhost:5218/api/products/1 | jq .
+
+        2.3 Search Products
+
+          curl -X GET "http://localhost:5218/api/products/search?q=headphones" | jq .
+
+        2.4 Get Products by Category
+
+          curl -X GET "http://localhost:5218/api/products/category/Electronics" | jq '.[0:2]'
+
+
+        2.5 Create New Product (Admin)
+
+           curl -X POST http://localhost:5218/api/products -H "Content-Type: application/json" -d '{"name": "Gaming Mouse", "description": "High-precision gaming mouse with RGB lighting", "price": 79.99, "stockQuantity": 25, "category": "Electronics", "imageUrl": "https://example.com/gaming-mouse.jpg"}' | jq .
+
+
+        3.1 Get User's Cart (Initially Empty)
+
+             curl -X GET http://localhost:5218/api/cart -H "Authorization: Bearer $JWT_TOKEN" | jq .
+
+        3.2 Add Items to Cart
+
+            curl -X POST http://localhost:5218/api/cart/items -H "Content-Type: application/json" -H "Authorization: Bearer $JWT_TOKEN" -d '{"productId": 1, "quantity": 2}' | jq .
+
+            curl -X POST http://localhost:5218/api/cart/items -H "Content-Type: application/json" -H "Authorization: Bearer $JWT_TOKEN" -d '{"productId": 11, "quantity": 1}' | jq .
+
+        3.3 View Updated Cart
+
+            curl -X GET http://localhost:5218/api/cart -H "Authorization: Bearer $JWT_TOKEN" | jq .
+
+
+        3.4 Update Cart Item Quantity
+
+            curl -X PUT http://localhost:5218/api/cart/items/2 -H "Content-Type: application/json" -H "Authorization: Bearer $JWT_TOKEN" -d '3' | jq .
+
+
+        3.5 Remove Item from Cart
+
+            curl -X DELETE http://localhost:5218/api/cart/items/3 -H "Authorization: Bearer $JWT_TOKEN"
+
+
+        3.6 View Cart After Removal
+
+           curl -X GET http://localhost:5218/api/cart -H "Authorization: Bearer $JWT_TOKEN" | jq .
+
+
+        4.1 Create Order from Cart
+
+            curl -X POST http://localhost:5218/api/orders -H "Content-Type: application/json" -H "Authorization: Bearer $JWT_TOKEN" -d '{"shippingAddress": "123 Main St, New York, NY 10001", "billingAddress": "123 Main St, New York, NY 10001", "notes": "Please deliver during business hours"}' | jq .
+
+
+        4.2 Get User's Orders
+
+           curl -X GET http://localhost:5218/api/orders -H "Authorization: Bearer $JWT_TOKEN" | jq .
+
+        4.3 Get Order by ID
+
+           curl -X GET http://localhost:5218/api/orders/2 -H "Authorization: Bearer $JWT_TOKEN" | jq .
+         
+        4.4 Update Order Status (Admin)    
+
+              curl -X PUT http://localhost:5218/api/orders/2/status -H "Content-Type: application/json" -H "Authorization: Bearer $JWT_TOKEN" -d '"Processing"' | jq .
+
+        4.5 Clear Cart After Order
+
+           curl -X DELETE http://localhost:5218/api/cart -H "Authorization: Bearer $JWT_TOKEN"
+                                                                    

@@ -151,3 +151,4 @@
 /Users/to4to/Developer/webA/EcommerceApp/obj/Debug/net9.0/EcommerceApp.pdb
 /Users/to4to/Developer/webA/EcommerceApp/obj/Debug/net9.0/EcommerceApp.genruntimeconfig.cache
 /Users/to4to/Developer/webA/EcommerceApp/obj/Debug/net9.0/ref/EcommerceApp.dll
+/Users/to4to/Developer/webA/EcommerceApp/obj/Debug/net9.0/EcommerceApp.sourcelink.json
