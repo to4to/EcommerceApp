@@ -849,12 +849,7 @@ This system includes:
 - ✅ Order processing and tracking
 - ✅ Secure password handling
 - ✅ Database persistence
-
-You can use this as a foundation to build a complete online store or learn how modern web applications work.
-
 ---
-
-## 📞 Need Help?
 
 If you run into any issues:
 
