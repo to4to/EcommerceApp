@@ -1,0 +1,117 @@
+@EcommerceApp_HostAddress = http://localhost:5218
+@token = your_jwt_token_here
+
+### Register a new user
+POST {{EcommerceApp_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123",
+  "firstName": "John",
+  "lastName": "Doe",
+  "phoneNumber": "+1234567890"
+}
+
+### Login user
+POST {{EcommerceApp_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+### Get current user info
+GET {{EcommerceApp_HostAddress}}/api/auth/me
+Authorization: Bearer {{token}}
+
+### Get all products
+GET {{EcommerceApp_HostAddress}}/api/products
+Accept: application/json
+
+### Get product by ID
+GET {{EcommerceApp_HostAddress}}/api/products/1
+Accept: application/json
+
+### Search products
+GET {{EcommerceApp_HostAddress}}/api/products/search?q=headphones
+Accept: application/json
+
+### Get products by category
+GET {{EcommerceApp_HostAddress}}/api/products/category/Electronics
+Accept: application/json
+
+### Create new product (Admin)
+POST {{EcommerceApp_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "New Product",
+  "description": "Product description",
+  "price": 99.99,
+  "stockQuantity": 50,
+  "category": "Electronics",
+  "imageUrl": "https://example.com/image.jpg"
+}
+
+### Get user's cart
+GET {{EcommerceApp_HostAddress}}/api/cart
+Authorization: Bearer {{token}}
+
+### Add item to cart
+POST {{EcommerceApp_HostAddress}}/api/cart/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 2
+}
+
+### Update cart item quantity
+PUT {{EcommerceApp_HostAddress}}/api/cart/items/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+3
+
+### Remove item from cart
+DELETE {{EcommerceApp_HostAddress}}/api/cart/items/1
+Authorization: Bearer {{token}}
+
+### Clear cart
+DELETE {{EcommerceApp_HostAddress}}/api/cart
+Authorization: Bearer {{token}}
+
+### Create order
+POST {{EcommerceApp_HostAddress}}/api/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "shippingAddress": "123 Main St, City, State 12345",
+  "billingAddress": "123 Main St, City, State 12345",
+  "notes": "Please deliver during business hours"
+}
+
+### Get user's orders
+GET {{EcommerceApp_HostAddress}}/api/orders
+Authorization: Bearer {{token}}
+
+### Get order by ID
+GET {{EcommerceApp_HostAddress}}/api/orders/1
+Authorization: Bearer {{token}}
+
+### Update order status (Admin)
+PUT {{EcommerceApp_HostAddress}}/api/orders/1/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+"Processing"
+
+### Get all orders (Admin)
+GET {{EcommerceApp_HostAddress}}/api/orders/admin/all
+Authorization: Bearer {{token}}
+
+###
